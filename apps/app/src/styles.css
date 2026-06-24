@@ -1,0 +1,10 @@
+/*
+ * Global styles for the Angular app.
+ * Processed by Angular's PostCSS pipeline via @tailwindcss/postcss (.postcssrc.json).
+ * `source(none)` disables auto file-scanning; we scope detection to the app's own
+ * templates and components, and share the same theme tokens as the Eleventy site.
+ */
+@import "tailwindcss" source(none);
+@import "../../../shared/theme.css";
+
+@source "./**/*.{html,ts}";
