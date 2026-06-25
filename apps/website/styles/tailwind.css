@@ -7,6 +7,6 @@
  * templates below.
  */
 @import "tailwindcss" source(none);
-@import "../../../shared/theme.css";
+@import "./theme.css";
 
 @source "../**/*.{njk,md,html}";

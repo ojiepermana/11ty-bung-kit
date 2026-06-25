@@ -1,10 +1,19 @@
 /*
  * Global styles for the Angular app.
  * Processed by Angular's PostCSS pipeline via @tailwindcss/postcss (.postcssrc.json).
- * `source(none)` disables auto file-scanning; we scope detection to the app's own
- * templates and components, and share the same theme tokens as the Eleventy site.
  */
-@import "tailwindcss" source(none);
-@import "../../../shared/theme.css";
 
+/* @ojiepermana/angular design system: base tokens -> Tailwind -> token mapping
+   (gives utilities like bg-primary, text-foreground, bg-card, rounded-md, …). */
+@import "@ojiepermana/angular-theme/theme.css";
+@import "tailwindcss" source(none);
+@import "@ojiepermana/angular-theme/styles/css/seasonal/base/tailwind.css";
+
+/* The app's own brand tokens (brand-*, font-display) — independent of the Eleventy site. */
+@import "./theme.css";
+
+/* Scope class detection: the app's own templates + the design system's compiled
+   components — Tailwind v4 ignores node_modules unless a source is named explicitly,
+   and the components reference utility classes via class-variance-authority. */
 @source "./**/*.{html,ts}";
+@source "../../../node_modules/@ojiepermana/*/fesm2022/*.mjs";

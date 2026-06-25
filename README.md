@@ -1,7 +1,7 @@
 # Bungkit
 
 A single-`package.json` starterkit that combines three apps on the **Bun** runtime,
-sharing one **TailwindCSS v4** theme:
+each frontend with its own independent **TailwindCSS v4** theme:
 
 | App | Stack | Source | Build output |
 | --- | --- | --- | --- |
@@ -54,11 +54,13 @@ Override the served directory or port with env vars: `PUBLIC_DIR`, `PORT`.
 
 ## How the pieces fit
 
-- **Tailwind v4** is configured CSS-first. Shared design tokens live in
-  [`shared/theme.css`](shared/theme.css) (`@theme { … }`) and are imported by both
-  the website ([`apps/website/styles/tailwind.css`](apps/website/styles/tailwind.css))
-  and the app ([`apps/app/src/styles.css`](apps/app/src/styles.css)), so they share
-  one palette (`brand-*`, `font-display`).
+- **Tailwind v4** is configured CSS-first. Each frontend owns its **own** design
+  tokens (`@theme { … }`) so their palettes (`brand-*`, `font-display`) can evolve
+  independently — nothing is shared between them:
+  - Website → [`apps/website/styles/theme.css`](apps/website/styles/theme.css),
+    imported by [`apps/website/styles/tailwind.css`](apps/website/styles/tailwind.css).
+  - App → [`apps/app/src/theme.css`](apps/app/src/theme.css),
+    imported by [`apps/app/src/styles.css`](apps/app/src/styles.css).
   - The website compiles CSS with `@tailwindcss/cli`.
   - The app compiles CSS through Angular's PostCSS pipeline via
     [`.postcssrc.json`](.postcssrc.json) (`@tailwindcss/postcss`).
@@ -83,10 +85,8 @@ Override the served directory or port with env vars: `PUBLIC_DIR`, `PORT`.
 
 ```
 apps/
-  website/    # Eleventy: layouts, pages, Tailwind entry, static public/
-  app/        # Angular 22: standalone, zoneless, HttpClient -> /api
+  website/    # Eleventy: layouts, pages, Tailwind entry + own theme.css, static public/
+  app/        # Angular 22: standalone, zoneless, own theme.css, HttpClient -> /api
   backend/    # ElysiaJS: /api/* + static serving + SPA fallback
-shared/
-  theme.css   # Tailwind @theme tokens shared by both frontends
 eleventy.config.js  angular.json  proxy.conf.json  .postcssrc.json  tsconfig.json
 ```
