@@ -3,11 +3,13 @@
  * Processed by Angular's PostCSS pipeline via @tailwindcss/postcss (.postcssrc.json).
  */
 
-/* @ojiepermana/angular design system: base tokens -> Tailwind -> token mapping
-   (gives utilities like bg-primary, text-foreground, bg-card, rounded-md, …). */
-@import "@ojiepermana/angular-theme/theme.css";
+/* @ojiepermana/angular design system: full theme (base tokens + every runtime
+   axis — color, neutral, radius, space) -> Tailwind -> token mapping. The full
+   sheet is needed because provideUiTheme defaults to non-base axes (color: rose,
+   radius: md, space: compact); swap to `…/theme.css` for base-only builds. */
+@import "@ojiepermana/angular-theme/theme-full.css";
 @import "tailwindcss" source(none);
-@import "@ojiepermana/angular-theme/styles/css/seasonal/base/tailwind.css";
+@import "@ojiepermana/angular-theme/styles/css/base/tailwind.css";
 
 /* The app's own brand tokens (brand-*, font-display) — independent of the Eleventy site. */
 @import "./theme.css";

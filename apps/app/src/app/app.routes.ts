@@ -6,4 +6,9 @@ export const routes: Routes = [
     title: 'Bungkit · App',
     loadComponent: () => import('./home').then((m) => m.Home),
   },
+  {
+    path: 'about',
+    title: 'Bungkit · About',
+    loadComponent: () => import('./about').then((m) => m.About),
+  },
 ];
